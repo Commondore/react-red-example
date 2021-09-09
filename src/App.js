@@ -4,12 +4,13 @@ import {useState} from 'react';
 
 function App() {
   const [users, setUsers] = useState([
-    { title: "Ketty", age: 30, hobby: "Chess" },
-    { title: "Sam", age: 20, hobby: "Football" },
-    { title: "John", age: 40, hobby: "Basketball" },
+    { title: "Ketty", age: 30, hobby: "Chess", id: 1},
+    { title: "Sam", age: 20, hobby: "Football", id: 2},
+    { title: "John", age: 40, hobby: "Basketball", id: 3}
   ]);
 
-  const changeName = (event, index) => {
+  const changeName = (event, id) => {
+    const index = users.findIndex((user) => user.id === id);
     const person = { ...users[index] };
     const usersCopy = [...users];
     person[event.target.name] = event.target.value;
@@ -27,7 +28,8 @@ function App() {
 
   };
 
-  const increaseAge = (index) => {
+  const increaseAge = (id) => {
+    const index = users.findIndex(user => user.id === id);
     const person = {...users[index]};
     person.age++;
     const usersCopy = [...users];
@@ -61,14 +63,14 @@ function App() {
       <div className="people">
         {
           // [<Person/>, <Person/>, <Person/>]
-          users.map( (user, index) => {
+          users.map( (user) => {
             return (
               <Person
-                key={index}
+                key={user.id}
                 title={user.title}
                 age={user.age}
-                click={() => increaseAge(index)}
-                change={(event) => changeName(event, index)}
+                click={() => increaseAge(user.id)}
+                change={(event) => changeName(event, user.id)}
               >
                 {user.hobby}
               </Person>
