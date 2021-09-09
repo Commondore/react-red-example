@@ -1,23 +1,54 @@
-import logo from './logo.svg';
 import './App.css';
+import Person from './components/Person/Person';
+import {useState} from 'react';
 
 function App() {
+  const [users, setUsers] = useState([
+    { title: "Ketty", age: 30, hobby: "Chess" },
+    { title: "Sam", age: 20, hobby: "Football" },
+  ]);
+
+  const changeName = () => {
+    setUsers((prevUsers) => {
+      const users = [...prevUsers];
+      const person = {...prevUsers[0]};
+      person.title = 'Peter';
+      users[0] = person;
+
+      return users;
+    })
+  };
+
+  const increaseAge = () => {
+    setUsers((prevUsers) => {
+      return prevUsers.map(user => {
+        return {
+          title: user.title,
+          hobby: user.hobby,
+          age: user.age + 1,
+        };
+      })
+    })
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <button className="btn" onClick={changeName}>
+          Change name
+        </button>
+        <button className="btn" onClick={increaseAge}>
+          Increase age
+        </button>
+      </div>
+      <div className="people">
+        <Person title={users[0].title} age={users[0].age}>
+          {users[0].hobby}
+        </Person>
+        <Person title={users[1].title} age={users[1].age}>
+          {users[1].hobby}
+        </Person>
+      </div>
     </div>
   );
 }

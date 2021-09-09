@@ -1,0 +1,49 @@
+.people {
+  margin: 1rem auto;
+  max-width: 700px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+.person {
+  padding: 2rem;
+  background: #f2f2f2;
+  box-shadow: 0 2px 3px -1px rgba(0,0,0, .5);
+  border-radius: 15px;
+  text-align: center;
+}
+.title {
+  font-size: 1.5rem;
+  color:rgb(27, 79, 139);
+  padding: 1rem;
+  border: 1px dashed rgba(0,0,0, .5);
+  border-radius: 15px;
+}
+.age {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+.age span {
+  color: rgb(177, 50, 50);
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.change__name {
+  border: none;
+  padding: .5rem;
+  width: 100%;
+  background: rgb(209, 209, 209);
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+.btn {
+  display: inline-block;
+  margin: .5rem 0;
+  border: none;
+  background: rgb(38, 187, 88);
+  color: white;
+  font-size: 1.3rem;
+  padding: .5rem 2rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
