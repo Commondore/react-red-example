@@ -47,3 +47,6 @@
   border-radius: 10px;
   cursor: pointer;
 }
+.btn-danger {
+  background: rgb(185, 24, 24);
+}

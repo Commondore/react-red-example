@@ -1,6 +1,8 @@
 import './App.css';
 import Person from './components/Person/Person';
 import {useState} from 'react';
+import Toggler from './components/Toggler/Toggler';
+import Counter from './components/Counter/Counter';
 
 function App() {
   const [users, setUsers] = useState([
@@ -8,6 +10,8 @@ function App() {
     { title: "Sam", age: 20, hobby: "Football", id: 2},
     { title: "John", age: 40, hobby: "Basketball", id: 3}
   ]);
+
+  const [show, setShow] = useState(true);
 
   const changeName = (event, id) => {
     const index = users.findIndex((user) => user.id === id);
@@ -38,48 +42,54 @@ function App() {
     setUsers(usersCopy);
 
   }
-  // let userList = [];
-  // for (let index = 0; index < users.length; index++) {
-  //   let user = users[index];
-  //   userList.push(
-  //     <Person
-  //       title={user.title}
-  //       age={user.age}
-  //       click={() => increaseAge(index)}
-  //       change={(event) => changeName(event, index)}
-  //     >
-  //       {user.hobby}
-  //     </Person>
-  //   );
-  // }
 
-  return (
-    <div className="App">
-      <div>
-        <button className="btn" onClick={increaseAge}>
-          Increase age
-        </button>
+  const removePerson = (id) => {
+    const index = users.findIndex((user) => user.id === id);
+    const usersCopy = [...users];
+    usersCopy.splice(index, 1);
+
+    setUsers(usersCopy);
+  };
+
+  const toggle = () => {
+    setShow(() => !show);
+  }
+
+  let showPeople = null;
+
+  if(show) {
+    showPeople = (
+          <div className="people">
+            {
+              users.map( (user) => {
+                return (
+                  <Person
+                    key={user.id}
+                    title={user.title}
+                    age={user.age}
+                    click={() => increaseAge(user.id)}
+                    change={(event) => changeName(event, user.id)}
+                    remove={() => removePerson(user.id)}
+                  >
+                    {user.hobby}
+                  </Person>
+                );
+              })
+            }
+          </div>
+        )
+  }
+
+
+    return (
+      <div className="App">
+        <div>
+          <Toggler show={show} toggle={toggle}/>
+          <Counter users={users}/>
+        </div>
+        {showPeople}
       </div>
-      <div className="people">
-        {
-          // [<Person/>, <Person/>, <Person/>]
-          users.map( (user) => {
-            return (
-              <Person
-                key={user.id}
-                title={user.title}
-                age={user.age}
-                click={() => increaseAge(user.id)}
-                change={(event) => changeName(event, user.id)}
-              >
-                {user.hobby}
-              </Person>
-            );
-          })
-        }
-      </div>
-    </div>
-  );
+    );
 }
 
 export default App;

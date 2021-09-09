@@ -9,7 +9,7 @@ function Person(props) {
       <p className="age">
         Age: <span>{props.age}</span>
       </p>
-      <p className="hobby">hobby: {props.children}</p>
+      <p className="hobby" onClick={props.remove}>hobby: {props.children}</p>
       <div>
         <input
           type="text"
